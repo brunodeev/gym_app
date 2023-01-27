@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:gym_app/constants/colors.dart';
 
 class New extends StatelessWidget {
   const New(this.title, {super.key});
@@ -10,6 +9,7 @@ class New extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kPrimaryColor,
       body: Text(title),
     );
   }

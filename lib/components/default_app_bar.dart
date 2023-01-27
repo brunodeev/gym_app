@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-
-import '../constants/colors.dart';
+import 'package:gym_app/constants/colors.dart';
 
 AppBar defaultAppBar() {
   return AppBar(
-    backgroundColor: bgColor,
-    elevation: 0.5,
+    backgroundColor: kPrimaryColor,
+    elevation: 0,
     title: Image.asset(
       'assets/images/gym_icon.png',
-      scale: 5,
+      scale: 6,
     ),
     centerTitle: true,
   );

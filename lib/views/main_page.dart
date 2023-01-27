@@ -4,19 +4,19 @@ import 'package:gym_app/views/new.dart';
 
 import '../components/default_app_bar.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MainPageState extends State<MainPage> {
   int _index = 0;
   final List<Widget> _telas = [
-    New("Minha conta"),
-    New("Meus Treinos"),
-    New("Meus pedidos"),
+    const New("Minha conta"),
+    const New("Meus Treinos"),
+    const New("Meus pedidos"),
   ];
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
       appBar: defaultAppBar(),
       body: _telas[_index],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: bgColor,
+        backgroundColor: kSecondaryColor,
         currentIndex: _index,
         onTap: toggleClick,
         showSelectedLabels: false,

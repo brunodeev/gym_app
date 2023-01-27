@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gym_app/constants/colors.dart';
-import 'views/home_page.dart';
+import 'views/main_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,12 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      systemNavigationBarColor: bgColor,
+      systemNavigationBarColor: kSecondaryColor,
       statusBarColor: Colors.transparent,
     ));
     return MaterialApp(
+      color: kPrimaryColor,
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: const MainPage(),
       theme: ThemeData(
         fontFamily: 'Poppins2',
       ),
