@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
 
-class New extends StatelessWidget {
-  const New(this.title, {super.key});
-
-  final String title;
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: kPrimaryColor,
-      body: Text(title),
+      body: Text('Just a test'),
     );
   }
 }
