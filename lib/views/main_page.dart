@@ -14,10 +14,10 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _index = 0;
+  int _index = 1;
   final List<Widget> _telas = [
-    const HomePage(),
     const WorkoutPage(),
+    const HomePage(),
     const ProfilePage(),
   ];
   @override
@@ -35,21 +35,6 @@ class _MainPageState extends State<MainPage> {
           _index == 0
               ? BottomNavigationBarItem(
                   icon: Image.asset(
-                    'assets/icons/home.png',
-                    scale: 20,
-                  ),
-                  label: '',
-                )
-              : BottomNavigationBarItem(
-                  icon: Image.asset(
-                    'assets/icons/home_outlined.png',
-                    scale: 20,
-                  ),
-                  label: '',
-                ),
-          _index == 1
-              ? BottomNavigationBarItem(
-                  icon: Image.asset(
                     'assets/icons/halter.png',
                     scale: 20,
                   ),
@@ -58,6 +43,21 @@ class _MainPageState extends State<MainPage> {
               : BottomNavigationBarItem(
                   icon: Image.asset(
                     'assets/icons/halter_outlined.png',
+                    scale: 20,
+                  ),
+                  label: '',
+                ),
+          _index == 1
+              ? BottomNavigationBarItem(
+                  icon: Image.asset(
+                    'assets/icons/home.png',
+                    scale: 20,
+                  ),
+                  label: '',
+                )
+              : BottomNavigationBarItem(
+                  icon: Image.asset(
+                    'assets/icons/home_outlined.png',
                     scale: 20,
                   ),
                   label: '',
