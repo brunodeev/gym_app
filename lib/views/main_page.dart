@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
 import 'package:gym_app/views/home_page.dart';
 import 'package:gym_app/views/profile_page.dart';
-import 'package:gym_app/views/training_page.dart';
+import 'package:gym_app/views/workout_page.dart';
 
 import '../components/default_app_bar.dart';
 
@@ -17,7 +17,7 @@ class _MainPageState extends State<MainPage> {
   int _index = 0;
   final List<Widget> _telas = [
     const HomePage(),
-    const TrainingPage(),
+    const WorkoutPage(),
     const ProfilePage(),
   ];
   @override
