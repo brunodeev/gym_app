@@ -10,21 +10,21 @@ class WorkoutPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: kPrimaryColor,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: ListView(
                 physics: const BouncingScrollPhysics(),
-                children: [
+                children: const [
                   Padding(
-                    padding: const EdgeInsets.only(left: 5, bottom: 10),
+                    padding: EdgeInsets.only(left: 5, top: 10, bottom: 10),
                     child: Text(
                       'Treinos do dia',
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.8),
-                        fontSize: 20,
+                        color: Colors.white,
+                        fontSize: 25,
                       ),
                     ),
                   ),
