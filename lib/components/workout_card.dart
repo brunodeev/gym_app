@@ -50,7 +50,11 @@ class WorkoutCard extends StatelessWidget {
                           style:
                               TextStyle(color: Colors.white.withOpacity(0.4)),
                         )
-                      : Text('$series Séries • $rep Rep. • $weight Kg'),
+                      : Text(
+                          '$series Séries • $rep Rep. • $weight Kg',
+                          style:
+                              TextStyle(color: Colors.white.withOpacity(0.4)),
+                        ),
                 ],
               ),
             ),
