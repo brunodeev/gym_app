@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gym_app/constants/colors.dart';
+import 'package:gym_app/views/login_page.dart';
+import 'package:gym_app/views/register_page.dart';
 import 'views/main_page.dart';
 
 void main() {
@@ -19,10 +21,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       color: kPrimaryColor,
       debugShowCheckedModeBanner: false,
-      home: const MainPage(),
       theme: ThemeData(
         fontFamily: 'Poppins2',
       ),
+      initialRoute: '/register',
+      routes: {
+        '/': (context) => const MainPage(),
+        '/login': (context) => const LoginPage(),
+        '/register': (context) => const RegisterPage(),
+      },
     );
   }
 }
