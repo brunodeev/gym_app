@@ -1,7 +1,7 @@
 // ignore_for_file: camel_case_types
 
 class DUMMY_DATA {
-  final List<String> type = ['A', 'B', 'C'];
+  final List<String> type = ['Aeróbico', 'Bíceps & Costas'];
   final List<Map<String, dynamic>> a = [
     {
       'type': 'A',

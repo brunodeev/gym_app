@@ -22,7 +22,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 10, bottom: 25),
+            padding:
+                const EdgeInsets.only(left: 15, top: 10, right: 15, bottom: 25),
             child: SizedBox(
               height: 35,
               child: ListView.builder(
@@ -38,10 +39,10 @@ class _WorkoutPageState extends State<WorkoutPage> {
                       },
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 100),
-                        margin: index == 0
-                            ? const EdgeInsets.only(left: 15)
-                            : const EdgeInsets.only(left: 5),
-                        width: 100,
+                        margin: const EdgeInsets.only(left: 5),
+                        width: MediaQuery.of(context).size.width /
+                            data.type.length *
+                            0.89,
                         decoration: BoxDecoration(
                           color: current == index
                               ? kSecondaryColor

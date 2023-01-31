@@ -6,9 +6,34 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: kPrimaryColor,
-      body: Text('Just a test'),
+      body: Column(
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 15, top: 10, right: 15, bottom: 25),
+            child: SizedBox(
+              height: 100,
+              width: MediaQuery.of(context).size.width,
+              child: Card(
+                color: kSecondaryColor,
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: const Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Treinos do dia',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
