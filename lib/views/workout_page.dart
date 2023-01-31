@@ -21,54 +21,213 @@ class _WorkoutPageState extends State<WorkoutPage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding:
-                const EdgeInsets.only(left: 15, top: 10, right: 15, bottom: 25),
-            child: SizedBox(
-              height: 35,
-              child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: data.type.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          current = index;
-                        });
-                      },
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 100),
-                        margin: const EdgeInsets.only(left: 5),
-                        width: MediaQuery.of(context).size.width /
-                            data.type.length *
-                            0.89,
-                        decoration: BoxDecoration(
-                          color: current == index
-                              ? kSecondaryColor
-                              : kTerciaryColor,
-                          borderRadius: current == index
-                              ? BorderRadius.circular(15)
-                              : BorderRadius.circular(12),
-                          border: current == index
-                              ? Border.all(color: Colors.white, width: 1.5)
+          if (data.type.length == 1)
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 15, top: 10, right: 15, bottom: 25),
+              child: SizedBox(
+                height: 38,
+                child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: data.type.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            current = index;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          margin: index != 0
+                              ? const EdgeInsets.only(left: 5)
                               : null,
-                        ),
-                        child: Center(
-                          child: Text(
-                            data.type[index],
-                            style: TextStyle(
-                              color: current == index
-                                  ? Colors.white
-                                  : Colors.white24,
+                          duration: const Duration(milliseconds: 100),
+                          width: MediaQuery.of(context).size.width - 30,
+                          decoration: BoxDecoration(
+                            color: current == index
+                                ? kSecondaryColor
+                                : kTerciaryColor,
+                            borderRadius: current == index
+                                ? BorderRadius.circular(15)
+                                : BorderRadius.circular(12),
+                            border: current == index
+                                ? Border.all(color: Colors.white, width: 1.5)
+                                : null,
+                          ),
+                          child: Center(
+                            child: Text(
+                              data.type[index],
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                height: 1,
+                                color: current == index
+                                    ? Colors.white
+                                    : Colors.white24,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    );
-                  }),
+                      );
+                    }),
+              ),
             ),
-          ),
+          if (data.type.length == 2)
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 15, top: 10, right: 15, bottom: 25),
+              child: SizedBox(
+                height: 38,
+                child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: data.type.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            current = index;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          margin: index != 0
+                              ? const EdgeInsets.only(left: 5)
+                              : null,
+                          duration: const Duration(milliseconds: 100),
+                          width: MediaQuery.of(context).size.width / 2 - 18,
+                          decoration: BoxDecoration(
+                            color: current == index
+                                ? kSecondaryColor
+                                : kTerciaryColor,
+                            borderRadius: current == index
+                                ? BorderRadius.circular(15)
+                                : BorderRadius.circular(12),
+                            border: current == index
+                                ? Border.all(color: Colors.white, width: 1.5)
+                                : null,
+                          ),
+                          child: Center(
+                            child: Text(
+                              data.type[index],
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                height: 1,
+                                color: current == index
+                                    ? Colors.white
+                                    : Colors.white24,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+              ),
+            ),
+          if (data.type.length == 3)
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 15, top: 10, right: 15, bottom: 25),
+              child: SizedBox(
+                height: 38,
+                child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: data.type.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            current = index;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          padding: data.type[index].length > 8
+                              ? const EdgeInsets.symmetric(horizontal: 5)
+                              : null,
+                          margin: index != 0
+                              ? const EdgeInsets.only(left: 5)
+                              : null,
+                          duration: const Duration(milliseconds: 100),
+                          width: MediaQuery.of(context).size.width / 3 - 13.5,
+                          decoration: BoxDecoration(
+                            color: current == index
+                                ? kSecondaryColor
+                                : kTerciaryColor,
+                            borderRadius: current == index
+                                ? BorderRadius.circular(15)
+                                : BorderRadius.circular(12),
+                            border: current == index
+                                ? Border.all(color: Colors.white, width: 1.5)
+                                : null,
+                          ),
+                          child: Center(
+                            child: Text(
+                              data.type[index],
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                height: 1,
+                                color: current == index
+                                    ? Colors.white
+                                    : Colors.white24,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+              ),
+            ),
+          if (data.type.length == 4)
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 15, top: 10, right: 15, bottom: 25),
+              child: SizedBox(
+                height: 38,
+                child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: data.type.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            current = index;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          margin: index != 0
+                              ? const EdgeInsets.only(left: 5)
+                              : null,
+                          duration: const Duration(milliseconds: 100),
+                          width: MediaQuery.of(context).size.width / 4 - 11.5,
+                          decoration: BoxDecoration(
+                            color: current == index
+                                ? kSecondaryColor
+                                : kTerciaryColor,
+                            borderRadius: current == index
+                                ? BorderRadius.circular(15)
+                                : BorderRadius.circular(12),
+                            border: current == index
+                                ? Border.all(color: Colors.white, width: 1.5)
+                                : null,
+                          ),
+                          child: Center(
+                            child: Text(
+                              data.type[index],
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                height: 1,
+                                color: current == index
+                                    ? Colors.white
+                                    : Colors.white24,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+              ),
+            ),
           if (current == 0)
             Expanded(
               child: Padding(
