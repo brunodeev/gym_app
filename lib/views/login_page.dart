@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
+import 'package:gym_app/services/auth_service.dart';
+import 'package:provider/provider.dart';
 import '../components/default_form_field.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,6 +16,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
+
+    final authService = Provider.of<AuthService>(context);
 
     return Scaffold(
       backgroundColor: kSecondaryColor,
@@ -63,7 +67,12 @@ class _LoginPageState extends State<LoginPage> {
                                 backgroundColor: kAccentColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15))),
-                            onPressed: () {},
+                            onPressed: () {
+                              authService.signInWithEmailAndPassword(
+                                emailController.text,
+                                passwordController.text,
+                              );
+                            },
                             child: const Text('Login'),
                           ),
                         ),
@@ -75,7 +84,9 @@ class _LoginPageState extends State<LoginPage> {
                               foregroundColor: kAccentColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15))),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/register');
+                          },
                           child: const Text(
                             'Registrar',
                             style: TextStyle(color: kAccentColor),

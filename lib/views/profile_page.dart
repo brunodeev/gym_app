@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gym_app/services/auth_service.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
 
@@ -7,6 +9,8 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
+
     return Scaffold(
       backgroundColor: kPrimaryColor,
       body: Padding(
@@ -112,10 +116,6 @@ class ProfilePage extends StatelessWidget {
                     height: 35,
                     width: double.infinity,
                     decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10),
-                      ),
                       color: kSecondaryColor,
                     ),
                     child: Row(
@@ -131,6 +131,38 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 1,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      authService.signOut();
+                    },
+                    child: Container(
+                      height: 35,
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+                        ),
+                        color: kSecondaryColor,
+                      ),
+                      child: Row(
+                        children: const [
+                          Center(
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Text(
+                                'Sair',
+                                style: TextStyle(color: Colors.red),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
+import 'package:gym_app/services/auth_service.dart';
+import 'package:provider/provider.dart';
 import '../components/default_form_field.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -14,6 +16,8 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
+
+    final authService = Provider.of<AuthService>(context);
 
     return Scaffold(
       backgroundColor: kSecondaryColor,
@@ -63,32 +67,17 @@ class _RegisterPageState extends State<RegisterPage> {
                                 backgroundColor: kAccentColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15))),
-                            onPressed: () {},
+                            onPressed: () {
+                              authService.createUserWithEmailAndPassword(
+                                emailController.text,
+                                passwordController.text,
+                              );
+
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/main', (route) => false);
+                            },
                             child: const Text('Registrar'),
                           ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 45,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'Já tem uma conta?',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            TextButton(
-                              style: ElevatedButton.styleFrom(
-                                  foregroundColor: kAccentColor,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15))),
-                              onPressed: () {},
-                              child: const Text(
-                                'Entrar',
-                                style: TextStyle(color: kAccentColor),
-                              ),
-                            ),
-                          ],
                         ),
                       ),
                     ],

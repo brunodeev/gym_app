@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "57850180933",
+    "project_id": "flutter-auth-brunodev",
+    "storage_bucket": "flutter-auth-brunodev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:57850180933:android:6dd6cfa43ae4f046737a2c",
+        "android_client_info": {
+          "package_name": "br.com.brunodev.gym_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "57850180933-grv2bvbrese0ignaencg1ko9ge1bi7vp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkZ5-JPo4sycyNmhnZqpi5ik4mQZ21Cs0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "57850180933-grv2bvbrese0ignaencg1ko9ge1bi7vp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

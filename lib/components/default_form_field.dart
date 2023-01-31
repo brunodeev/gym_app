@@ -38,7 +38,7 @@ class _DefaultFormFieldState extends State<DefaultFormField> {
           ),
         ),
         hintText: widget.label,
-        hintStyle: TextStyle(color: Colors.white30, fontSize: 15),
+        hintStyle: const TextStyle(color: Colors.white30, fontSize: 15),
       ),
     );
   }
