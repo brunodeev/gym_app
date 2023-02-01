@@ -1,4 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: unused_field
+
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
 import 'package:gym_app/services/auth_service.dart';
@@ -13,11 +14,12 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  static final GlobalKey<FormState> _key = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-
     final authService = Provider.of<AuthService>(context);
 
     return Scaffold(
@@ -48,6 +50,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         label: 'Email',
                         controller: emailController,
                         type: TextInputType.emailAddress,
+                        validator: validateEmail,
                       ),
                       const SizedBox(
                         height: 5,
@@ -57,6 +60,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: passwordController,
                         type: TextInputType.text,
                         obscureText: true,
+                        validator: validatePassword,
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -90,5 +94,19 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+
+  String? validateEmail(String? formEmail) {
+    if (formEmail == null || formEmail.isEmpty) {
+      return 'Insira um email válido';
+    }
+    return null;
+  }
+
+  String? validatePassword(String? formPassword) {
+    if (formPassword == null || formPassword.isEmpty) {
+      return 'Insira uma senha válida';
+    }
+    return null;
   }
 }
