@@ -50,7 +50,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         label: 'Email',
                         controller: emailController,
                         type: TextInputType.emailAddress,
-                        validator: validateEmail,
                       ),
                       const SizedBox(
                         height: 5,
@@ -60,7 +59,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: passwordController,
                         type: TextInputType.text,
                         obscureText: true,
-                        validator: validatePassword,
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -72,14 +70,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                 backgroundColor: kAccentColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15))),
-                            onPressed: () {
-                              authService.createUserWithEmailAndPassword(
+                            onPressed: () async {
+                              await authService.createUserWithEmailAndPassword(
                                 emailController.text,
                                 passwordController.text,
                               );
-
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, '/main', (route) => false);
+                              Navigator.of(context).pushNamed('/login');
                             },
                             child: const Text('Registrar'),
                           ),
@@ -94,19 +90,5 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
-  }
-
-  String? validateEmail(String? formEmail) {
-    if (formEmail == null || formEmail.isEmpty) {
-      return 'Insira um email válido';
-    }
-    return null;
-  }
-
-  String? validatePassword(String? formPassword) {
-    if (formPassword == null || formPassword.isEmpty) {
-      return 'Insira uma senha válida';
-    }
-    return null;
   }
 }

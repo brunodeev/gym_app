@@ -137,9 +137,7 @@ class ProfilePage extends StatelessWidget {
                     height: 1,
                   ),
                   GestureDetector(
-                    onTap: () {
-                      authService.signOut();
-                    },
+                    onTap: authService.signOut,
                     child: Container(
                       height: 35,
                       width: double.infinity,

@@ -30,7 +30,6 @@ class AuthService {
       email: email,
       password: password,
     );
-
     return _userFromFirebase(credential.user);
   }
 
