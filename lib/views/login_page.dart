@@ -16,13 +16,15 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
+    final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
     final authService = Provider.of<AuthService>(context);
 
     return Scaffold(
       backgroundColor: kSecondaryColor,
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: Expanded(
           child: Column(
             children: [
               SizedBox(
@@ -41,12 +43,14 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Form(
+                  key: _key,
                   child: Column(
                     children: [
                       DefaultFormField(
                         label: 'Email',
                         controller: emailController,
                         type: TextInputType.emailAddress,
+                        validator: validateEmail,
                       ),
                       const SizedBox(
                         height: 5,
@@ -56,6 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                         controller: passwordController,
                         type: TextInputType.text,
                         obscureText: true,
+                        validator: validatePassword,
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -68,10 +73,12 @@ class _LoginPageState extends State<LoginPage> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15))),
                             onPressed: () {
-                              authService.signInWithEmailAndPassword(
-                                emailController.text,
-                                passwordController.text,
-                              );
+                              if (_key.currentState!.validate()) {
+                                authService.signInWithEmailAndPassword(
+                                  emailController.text,
+                                  passwordController.text,
+                                );
+                              }
                             },
                             child: const Text('Login'),
                           ),
@@ -102,5 +109,19 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  String? validateEmail(String? formEmail) {
+    if (formEmail == null || formEmail.isEmpty) {
+      return 'Insira um email válido';
+    }
+    return null;
+  }
+
+  String? validatePassword(String? formPassword) {
+    if (formPassword == null || formPassword.isEmpty) {
+      return 'Insira uma senha válida';
+    }
+    return null;
   }
 }

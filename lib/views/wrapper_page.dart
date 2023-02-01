@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gym_app/services/auth_service.dart';
-import 'package:gym_app/views/home_page.dart';
 import 'package:gym_app/views/login_page.dart';
 import 'package:gym_app/views/main_page.dart';
 import 'package:provider/provider.dart';
