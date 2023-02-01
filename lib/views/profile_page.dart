@@ -1,3 +1,6 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_app/services/auth_service.dart';
 import 'package:provider/provider.dart';
@@ -37,14 +40,29 @@ class ProfilePage extends StatelessWidget {
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                           Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Text(
-                              'Ana Júlia Pereira de Souza Ribeiro',
-                              style: TextStyle(
+                              FirebaseAuth.instance.currentUser!.displayName
+                                  .toString(),
+                              style: const TextStyle(
                                 fontSize: 20,
                                 color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text(
+                              FirebaseAuth.instance.currentUser!.email
+                                  .toString(),
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.white.withOpacity(0.5),
                               ),
                             ),
                           ),
@@ -137,7 +155,11 @@ class ProfilePage extends StatelessWidget {
                     height: 1,
                   ),
                   GestureDetector(
-                    onTap: authService.signOut,
+                    onTap: () async {
+                      await authService.signOut();
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/login', (route) => false);
+                    },
                     child: Container(
                       height: 35,
                       width: double.infinity,

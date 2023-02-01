@@ -1,4 +1,4 @@
-// ignore_for_file: unused_field
+// ignore_for_file: unused_field, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
@@ -14,9 +14,9 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  static final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +26,7 @@ class _RegisterPageState extends State<RegisterPage> {
       backgroundColor: kSecondaryColor,
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
               SizedBox(
@@ -34,11 +35,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   'assets/images/gym_icon.png',
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 25),
                 child: Text(
                   'Registrar',
-                  style: TextStyle(color: Colors.white, fontSize: 40),
+                  style: TextStyle(
+                      color: Colors.white.withOpacity(0.6), fontSize: 40),
                 ),
               ),
               Padding(
@@ -46,6 +48,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: Form(
                   child: Column(
                     children: [
+                      DefaultFormField(
+                        label: 'Nome',
+                        controller: nameController,
+                        type: TextInputType.text,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
                       DefaultFormField(
                         label: 'Email',
                         controller: emailController,
@@ -61,7 +71,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         obscureText: true,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        padding: const EdgeInsets.only(top: 15, bottom: 35),
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.93,
                           height: 45,
@@ -72,9 +82,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                     borderRadius: BorderRadius.circular(15))),
                             onPressed: () async {
                               await authService.createUserWithEmailAndPassword(
+                                nameController.text,
                                 emailController.text,
                                 passwordController.text,
                               );
+
                               Navigator.of(context).pushNamed('/login');
                             },
                             child: const Text('Registrar'),
