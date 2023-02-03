@@ -1,5 +1,6 @@
 // ignore_for_file: unused_field, use_build_context_synchronously
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
 import 'package:gym_app/services/auth_service.dart';
@@ -14,6 +15,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final referenceDatabase = FirebaseDatabase.instance;
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -21,6 +24,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
+    final ref = referenceDatabase.ref();
 
     return Scaffold(
       backgroundColor: kSecondaryColor,
@@ -86,6 +90,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                 emailController.text,
                                 passwordController.text,
                               );
+                              ref
+                                  .child('Accounts')
+                                  .push()
+                                  .child('Nome')
+                                  .set(nameController.text)
+                                  .asStream();
 
                               Navigator.of(context).pushNamed('/login');
                             },
