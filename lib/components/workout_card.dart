@@ -1,18 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gym_app/models/workout_model.dart';
 
 class WorkoutCard extends StatelessWidget {
-  const WorkoutCard({
-    super.key,
-    required this.image,
-    required this.name,
-    required this.series,
-    required this.rep,
-    this.weight,
-  });
+  const WorkoutCard({super.key, required this.workoutList});
 
-  final String image, name;
-  final int series, rep;
-  final double? weight;
+  final Workout workoutList;
 
   @override
   Widget build(BuildContext context) {
@@ -23,17 +15,6 @@ class WorkoutCard extends StatelessWidget {
         color: Colors.transparent,
         child: Row(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: SizedBox(
-                height: 100,
-                width: 70,
-                child: Image.asset(
-                  image,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.only(left: 15),
               child: Column(
@@ -41,20 +22,13 @@ class WorkoutCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    workoutList.workoutData!.workoutName!,
                     style: const TextStyle(color: Colors.white, fontSize: 16),
                   ),
-                  weight == null
-                      ? Text(
-                          '$series Séries • $rep Rep.',
-                          style:
-                              TextStyle(color: Colors.white.withOpacity(0.4)),
-                        )
-                      : Text(
-                          '$series Séries • $rep Rep. • $weight Kg',
-                          style:
-                              TextStyle(color: Colors.white.withOpacity(0.4)),
-                        ),
+                  Text(
+                    '${workoutList.workoutData!.series!} Séries • ${workoutList.workoutData!.rep!} Rep.',
+                    style: TextStyle(color: Colors.white.withOpacity(0.4)),
+                  ),
                 ],
               ),
             ),

@@ -91,9 +91,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                 passwordController.text,
                               );
                               ref
-                                  .child('Accounts')
+                                  .child('accounts')
                                   .push()
-                                  .child('Nome')
+                                  .child('name')
                                   .set(nameController.text)
                                   .asStream();
 
