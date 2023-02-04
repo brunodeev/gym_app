@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
 import 'package:gym_app/services/auth_service.dart';
@@ -12,6 +13,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  @override
+  void initState() {
+    super.initState();
+    emailController.text = '';
+    passwordController.text = '';
+  }
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   static final _key = GlobalKey<FormState>();
@@ -78,8 +86,12 @@ class _LoginPageState extends State<LoginPage> {
                                   emailController.text,
                                   passwordController.text,
                                 );
-                                Navigator.pushNamedAndRemoveUntil(
-                                    context, '/main', (route) => false);
+                                if (FirebaseAuth.instance.currentUser == null) {
+                                  const Text('Erro');
+                                } else {
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context, '/main', (route) => false);
+                                }
                               }
                             },
                             child: const Text('Login'),

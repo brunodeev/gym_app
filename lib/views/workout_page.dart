@@ -1,10 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_app/components/workout_card.dart';
 import 'package:gym_app/constants/colors.dart';
 import 'package:gym_app/data/dummy_data.dart';
-import 'package:gym_app/models/workout_model.dart';
 
 class WorkoutPage extends StatefulWidget {
   const WorkoutPage({super.key});
@@ -14,17 +11,7 @@ class WorkoutPage extends StatefulWidget {
 }
 
 class _WorkoutPageState extends State<WorkoutPage> {
-  final referenceDatabase = FirebaseDatabase.instance;
   int current = 0;
-
-  List<Workout> workoutList = [];
-
-  @override
-  void initState() {
-    super.initState();
-
-    retrieveWorkoutData();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +22,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          for (int i = 0; i < workoutList.length; i++)
-            WorkoutCard(
-              workoutList: workoutList[i],
-            )
-          /* if (data.type.length == 1)
+          if (data.type.length == 1)
             Padding(
               padding: const EdgeInsets.only(
                   left: 15, top: 10, right: 15, bottom: 25),
@@ -246,40 +229,44 @@ class _WorkoutPageState extends State<WorkoutPage> {
                     }),
               ),
             ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Column(
-                children: [
-                  
-                ],
+          if (current == 0)
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  children: data.a
+                      .map(
+                        (value) => WorkoutCard(
+                          name: value['name'].toString(),
+                          rep: value['rep'],
+                          series: value['series'],
+                        ),
+                      )
+                      .toList(),
+                ),
               ),
             ),
-          ),*/
+          if (current == 1)
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  children: data.b
+                      .map(
+                        (value) => WorkoutCard(
+                          name: value['name'].toString(),
+                          rep: value['rep'],
+                          series: value['series'],
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            ),
         ],
       ),
-    );
-  }
-
-  void retrieveWorkoutData() {
-    referenceDatabase
-        .ref()
-        .child('accounts')
-        .child(
-          FirebaseAuth.instance.currentUser!.uid.toString(),
-        )
-        .onChildAdded
-        .listen(
-      (data) {
-        WorkoutData workoutData =
-            WorkoutData.fromJson(data.snapshot.value as Map);
-        Workout workout =
-            Workout(key: data.snapshot.key, workoutData: workoutData);
-        workoutList.add(workout);
-        setState(
-          () {},
-        );
-      },
     );
   }
 }

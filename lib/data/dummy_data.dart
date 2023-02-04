@@ -46,18 +46,4 @@ class DUMMY_DATA {
       'weight': 10.0
     },
   ];
-  final List<Map<String, dynamic>> c = [
-    {
-      'image': 'assets/images/men.jpg',
-      'name': 'Montanha C',
-      'rep': 10,
-      'series': 4,
-    },
-    {
-      'image': 'assets/images/abdominal.jpg',
-      'name': 'Abdominal C',
-      'rep': 10,
-      'series': 4,
-    }
-  ];
 }
