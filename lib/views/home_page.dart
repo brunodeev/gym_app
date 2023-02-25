@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
 
@@ -23,11 +22,11 @@ class HomePage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: Align(
+                child: const Align(
                   alignment: Alignment.center,
                   child: Text(
-                    'Olá, ${FirebaseAuth.instance.currentUser!.displayName}!',
-                    style: const TextStyle(color: Colors.white, fontSize: 20),
+                    'Olá!',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
               ),

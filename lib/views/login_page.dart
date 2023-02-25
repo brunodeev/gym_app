@@ -1,8 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
-import 'package:gym_app/services/auth_service.dart';
-import 'package:provider/provider.dart';
 import '../components/default_form_field.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,8 +22,6 @@ class _LoginPageState extends State<LoginPage> {
   static final _key = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
-
     return Scaffold(
       backgroundColor: kSecondaryColor,
       body: SafeArea(
@@ -81,18 +76,8 @@ class _LoginPageState extends State<LoginPage> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15))),
                             onPressed: () {
-                              if (_key.currentState!.validate()) {
-                                authService.signInWithEmailAndPassword(
-                                  emailController.text,
-                                  passwordController.text,
-                                );
-                                if (FirebaseAuth.instance.currentUser == null) {
-                                  const Text('Erro');
-                                } else {
-                                  Navigator.pushNamedAndRemoveUntil(
-                                      context, '/main', (route) => false);
-                                }
-                              }
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/main', (route) => false);
                             },
                             child: const Text('Login'),
                           ),

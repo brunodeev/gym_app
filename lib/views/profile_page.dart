@@ -1,9 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gym_app/services/auth_service.dart';
-import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
 
@@ -12,8 +9,6 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
-
     return Scaffold(
       backgroundColor: kPrimaryColor,
       body: Padding(
@@ -42,13 +37,11 @@ class ProfilePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
                             child: Text(
-                              FirebaseAuth.instance.currentUser!.displayName
-                                  .toString(),
-                              style: const TextStyle(
+                              'Bruno',
+                              style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.white,
                               ),
@@ -58,8 +51,7 @@ class ProfilePage extends StatelessWidget {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Text(
-                              FirebaseAuth.instance.currentUser!.email
-                                  .toString(),
+                              'bcgmeireles@gmail.com',
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.white.withOpacity(0.5),
@@ -155,8 +147,7 @@ class ProfilePage extends StatelessWidget {
                     height: 1,
                   ),
                   GestureDetector(
-                    onTap: () async {
-                      await authService.signOut();
+                    onTap: () {
                       Navigator.pushNamedAndRemoveUntil(
                           context, '/login', (route) => false);
                     },

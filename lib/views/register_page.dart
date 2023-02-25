@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
-import 'package:gym_app/services/auth_service.dart';
-import 'package:provider/provider.dart';
 import '../components/default_form_field.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -22,8 +20,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
-
     return Scaffold(
       backgroundColor: kSecondaryColor,
       body: isLoading
@@ -92,13 +88,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                     setState(() {
                                       isLoading = true;
                                     });
-                                    await authService
-                                        .createUserWithEmailAndPassword(
-                                      nameController.text,
-                                      emailController.text,
-                                      passwordController.text,
-                                    );
-
                                     Navigator.of(context).pushNamed('/login');
                                     setState(() {
                                       isLoading = false;
