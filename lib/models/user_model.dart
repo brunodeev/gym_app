@@ -1,18 +1,17 @@
 // ignore_for_file: unnecessary_getters_setters
 
 class User {
-  int _uid;
+  int _id;
   String _name;
   String _email;
   int _age;
   double _weight;
   String _phone;
 
-  User(
-      this._uid, this._name, this._email, this._age, this._weight, this._phone);
+  User(this._id, this._name, this._email, this._age, this._weight, this._phone);
 
-  int get uid => _uid;
-  set id(int value) => _uid = value;
+  int get id => _id;
+  set id(int value) => _id = value;
 
   String get name => _name;
   set name(String value) => _name = value;
@@ -32,7 +31,7 @@ class User {
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{};
 
-    map['uid'] = _uid;
+    map['id'] = _id;
     map['name'] = _name;
     map['email'] = _email;
     map['age'] = _age;
@@ -43,7 +42,7 @@ class User {
   }
 
   fromMap(Map<String, dynamic> map) {
-    _uid = map['uid'];
+    _id = map['id'];
     _name = map['name'];
     _email = map['email'];
     _age = map['age'];
