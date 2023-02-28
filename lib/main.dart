@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gym_app/constants/colors.dart';
+import 'package:gym_app/provider/user_provider.dart';
 import 'package:gym_app/views/login_page.dart';
 import 'package:gym_app/views/register_page.dart';
+import 'package:provider/provider.dart';
 import 'views/main_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => UserGlobal(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -24,7 +31,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'Poppins2',
         ),
-        initialRoute: '/',
+        initialRoute: '/register',
         routes: {
           '/': (context) => const MainPage(),
           '/login': (context) => const LoginPage(),

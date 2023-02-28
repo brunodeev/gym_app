@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_getters_setters
 
 class User {
-  int _id;
+  int? _id;
   String _name;
   String _email;
   int _age;
@@ -10,7 +10,7 @@ class User {
 
   User(this._id, this._name, this._email, this._age, this._weight, this._phone);
 
-  int get id => _id;
+  int get id => _id!;
   set id(int value) => _id = value;
 
   String get name => _name;

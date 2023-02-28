@@ -1,54 +1,78 @@
-import 'package:flutter/material.dart';
-import 'package:gym_app/models/user_model.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:sqflite/sqflite.dart';
-import 'dart:io';
+// ignore_for_file: empty_catches
+
+import 'package:sqflite/sqflite.dart' as sql;
 
 class UserHelpers {
-  // Table Structure
-  String tableName = 'tbl_users';
-  String colId = 'id';
-  String colName = 'name';
-  String colEmail = 'email';
-  String colAge = 'age';
-  String colWeight = 'weight';
-  String colPhone = 'phone';
-
   // Create and Connect DataBase
 
-  void _createTable(Database db, int version) async {
-    await db.execute('''
-      CREATE TABLE $tableName (
-        $colId INTEGER PRIMARYKEY AUTOINCREMENT,
-        $colName Text,
-        $colEmail Text,
-        $colAge INTEGER,
-        $colWeight DOUBLE,
-        $colPhone Text
+  static Future<void> createTable(sql.Database database) async {
+    await database.execute('''
+      CREATE TABLE data (
+        id INTEGER PRIMARYKEY AUTO_INCREMENT,
+        name Text,
+        email Text,
+        age INTEGER,
+        weight DOUBLE,
+        phone Text
       )
     ''');
   }
 
-  static UserHelpers? _databasehelper;
-  static Database? _database;
-
-  UserHelpers._createInstance();
-
-  factory UserHelpers() {
-    _databasehelper ??= UserHelpers._createInstance();
-    return _databasehelper!;
+  static Future<sql.Database> db() async {
+    return sql.openDatabase(
+      'db_users.db',
+      version: 1,
+      onCreate: (sql.Database database, int version) async {
+        await createTable(database);
+      },
+    );
   }
 
-  Future<Database> get database async {
-    _database ??= await InitializeDB();
-    return _database!;
+  static Future<int> createData(
+      String name, String email, int age, double weight, String phone) async {
+    final db = await UserHelpers.db();
+
+    final data = {
+      'name': name,
+      'email': email,
+      'age': age,
+      'weight': weight,
+      'phone': phone
+    };
+    final id = await db.insert('data', data,
+        conflictAlgorithm: sql.ConflictAlgorithm.replace);
+    return id;
   }
 
-  Future<Database> InitializeDB() async {
-    Directory directory = await getApplicationDocumentsDirectory();
-    String way = directory.path + 'dbusers.db';
+  static Future<List<Map<String, dynamic>>> getAllData() async {
+    final db = await UserHelpers.db();
+    return db.query('data', orderBy: 'id');
+  }
 
-    var db = await openDatabase(way, version: 1, onCreate: _createTable);
-    return db;
+  static Future<List<Map<String, dynamic>>> getSingleData(int id) async {
+    final db = await UserHelpers.db();
+    return db.query('data', where: 'id = ?', whereArgs: [id], limit: 1);
+  }
+
+  static Future<int> updateData(int id, String name, String email, int age,
+      double weight, String phone) async {
+    final db = await UserHelpers.db();
+    final data = {
+      'name': name,
+      'email': email,
+      'age': age,
+      'weight': weight,
+      'phone': phone
+    };
+    final result =
+        await db.update('data', data, where: 'id = ?', whereArgs: [id]);
+    return result;
+  }
+
+  static Future<void> deleteData(int id) async {
+    final db = await UserHelpers.db();
+    try {
+      await db.delete('data', where: 'id = ?', whereArgs: [id]);
+    } catch (e) {}
   }
 }
