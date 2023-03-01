@@ -53,7 +53,6 @@ class _LoginPageState extends State<LoginPage> {
                         label: 'Email',
                         controller: emailController,
                         type: TextInputType.emailAddress,
-                        validator: validateEmail,
                       ),
                       const SizedBox(
                         height: 5,
@@ -63,7 +62,6 @@ class _LoginPageState extends State<LoginPage> {
                         controller: passwordController,
                         type: TextInputType.text,
                         obscureText: true,
-                        validator: validatePassword,
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
