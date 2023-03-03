@@ -40,9 +40,19 @@ class UserHelpers {
     );
   }
 
-  Future<UserModel> saveData(UserModel user) async {
+  Future<int> saveData(UserModel user) async {
     var dbClient = await db;
-    user.userId = dbClient.insert(Table_User, user.toMap()).toString();
-    return user;
+    var res = await dbClient.insert(Table_User, user.toMap());
+    return res;
+  }
+
+  Future<UserModel?> getLoginUser(String userId, String password) async {
+    var dbClient = await db;
+    var res = await dbClient.rawQuery(
+        'SELECT * FROM $Table_User WHERE $C_UserID = $userId AND $C_Password = $password');
+    if (res.isNotEmpty) {
+      return UserModel.fromMap(res.first);
+    }
+    return null;
   }
 }

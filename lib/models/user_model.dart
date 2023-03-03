@@ -1,10 +1,10 @@
 // ignore_for_file: unnecessary_getters_setters
 
 class UserModel {
-  String userId;
-  String userName;
-  String email;
-  String password;
+  late String userId;
+  late String userName;
+  late String email;
+  late String password;
 
   UserModel(this.userId, this.userName, this.email, this.password);
 
@@ -18,7 +18,7 @@ class UserModel {
     return map;
   }
 
-  fromMap(Map<String, dynamic> map) {
+  UserModel.fromMap(Map<String, dynamic> map) {
     userId = map['userId'];
     userName = map['userName'];
     email = map['email'];

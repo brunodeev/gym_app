@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
 import '../components/default_form_field.dart';
+import '../utils/user_helpers.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -10,16 +13,35 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+
+  final _userIdController = TextEditingController();
+  final _passwordController = TextEditingController();
+  var userHelpers;
+
   @override
   void initState() {
     super.initState();
-    emailController.text = '';
-    passwordController.text = '';
+    userHelpers = UserHelpers();
   }
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  static final _key = GlobalKey<FormState>();
+  login() async {
+    final uid = _userIdController.text;
+    final password = _passwordController.text;
+
+    if (uid.isEmpty) {
+      const AlertDialog(
+        content: Text('Preencha com ID!'),
+      );
+    } else if (password.isEmpty) {
+      const AlertDialog(
+        content: Text('Preencha com Senha!'),
+      );
+    } else {
+      await userHelpers.getLoginUser(uid, password).then(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,12 +68,12 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Form(
-                  key: _key,
+                  key: _formKey,
                   child: Column(
                     children: [
                       DefaultFormField(
-                        label: 'Email',
-                        controller: emailController,
+                        label: 'ID',
+                        controller: _userIdController,
                         type: TextInputType.emailAddress,
                       ),
                       const SizedBox(
@@ -59,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       DefaultFormField(
                         label: 'Senha',
-                        controller: passwordController,
+                        controller: _passwordController,
                         type: TextInputType.text,
                         obscureText: true,
                       ),

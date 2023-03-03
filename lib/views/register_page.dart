@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
@@ -46,10 +46,16 @@ class _RegisterPageState extends State<RegisterPage> {
 
         UserModel userModel = UserModel(uid, uname, email, password);
 
-        userHelpers.saveData(userModel);
-        const AlertDialog(
-          content: Text('Salvo com Sucesso!'),
-        );
+        userHelpers.saveData(userModel).then((userData) {
+          const AlertDialog(
+            content: Text('Salvo com Sucesso!'),
+          );
+        }).catchError((error) {
+          print(error);
+          const AlertDialog(
+            content: Text('Falhou!'),
+          );
+        });
       }
     }
   }
