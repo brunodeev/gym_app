@@ -1,7 +1,9 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
+import 'package:gym_app/views/main_page.dart';
+import 'package:gym_app/views/register_page.dart';
 import '../components/default_form_field.dart';
 import '../utils/user_helpers.dart';
 
@@ -38,7 +40,24 @@ class _LoginPageState extends State<LoginPage> {
         content: Text('Preencha com Senha!'),
       );
     } else {
-      await userHelpers.getLoginUser(uid, password).then(() {});
+      await userHelpers.getLoginUser(uid, password).then((userData) {
+        print(userData.email);
+        if (userData != null) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => const MainPage()),
+              (route) => false);
+        } else {
+          const AlertDialog(
+            content: Text('Falha no Login!'),
+          );
+        }
+      }).catchError((error) {
+        print(error);
+        const AlertDialog(
+          content: Text('Falha no Login!'),
+        );
+      });
     }
   }
 
@@ -95,10 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                                 backgroundColor: kAccentColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15))),
-                            onPressed: () {
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, '/main', (route) => false);
-                            },
+                            onPressed: login,
                             child: const Text('Login'),
                           ),
                         ),
@@ -119,9 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                               ),
-                              onPressed: () {
-                                Navigator.pushNamed(context, '/register');
-                              },
+                              onPressed: () {},
                               child: const Text(
                                 'Registre-se',
                                 style: TextStyle(color: kAccentColor),

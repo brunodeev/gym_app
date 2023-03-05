@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
 import 'package:gym_app/models/user_model.dart';
 import 'package:gym_app/utils/user_helpers.dart';
+import 'package:gym_app/views/login_page.dart';
 import '../components/default_form_field.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -29,7 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
     userHelpers = UserHelpers();
   }
 
-  login() {
+  login() async {
     String uid = _userIdController.text;
     String uname = _userNameController.text;
     String email = _emailController.text;
@@ -46,7 +47,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
         UserModel userModel = UserModel(uid, uname, email, password);
 
-        userHelpers.saveData(userModel).then((userData) {
+        await userHelpers.saveData(userModel).then((userData) {
           const AlertDialog(
             content: Text('Salvo com Sucesso!'),
           );
@@ -137,6 +138,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                   borderRadius: BorderRadius.circular(15))),
                           onPressed: () {
                             login();
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const LoginPage()),
+                                (route) => false);
                           },
                           child: const Text('Registrar'),
                         ),

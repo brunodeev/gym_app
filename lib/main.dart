@@ -26,11 +26,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'Poppins2',
         ),
-        initialRoute: '/register',
-        routes: {
-          '/': (context) => const MainPage(),
-          '/login': (context) => const LoginPage(),
-          '/register': (context) => const RegisterPage(),
-        });
+        home: const RegisterPage());
   }
 }
