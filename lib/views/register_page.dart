@@ -2,9 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
-import 'package:gym_app/models/user_model.dart';
-import 'package:gym_app/utils/user_helpers.dart';
-import 'package:gym_app/views/login_page.dart';
 import '../components/default_form_field.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -22,44 +19,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  var userHelpers;
-
-  @override
-  void initState() {
-    super.initState();
-    userHelpers = UserHelpers();
-  }
-
-  login() async {
-    String uid = _userIdController.text;
-    String uname = _userNameController.text;
-    String email = _emailController.text;
-    String password = _passwordController.text;
-    String confirmPassword = _confirmPasswordController.text;
-
-    if (_formKey.currentState!.validate()) {
-      if (password != confirmPassword) {
-        const AlertDialog(
-          content: Text('Senhas não correspondem!'),
-        );
-      } else {
-        _formKey.currentState!.save();
-
-        UserModel userModel = UserModel(uid, uname, email, password);
-
-        await userHelpers.saveData(userModel).then((userData) {
-          const AlertDialog(
-            content: Text('Salvo com Sucesso!'),
-          );
-        }).catchError((error) {
-          print(error);
-          const AlertDialog(
-            content: Text('Falhou!'),
-          );
-        });
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,14 +95,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               backgroundColor: kAccentColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15))),
-                          onPressed: () {
-                            login();
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => const LoginPage()),
-                                (route) => false);
-                          },
+                          onPressed: () {},
                           child: const Text('Registrar'),
                         ),
                       ),

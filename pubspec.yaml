@@ -1,5 +1,5 @@
 name: gym_app
-description: A new Flutter project.
+description: The best app for your workouts.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -33,11 +33,12 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
+  cloud_firestore: ^4.4.4
+  firebase_auth: ^4.2.10
+  firebase_core: ^2.7.1
+  firebase_storage: ^11.0.15
   path_provider: ^2.0.13
   provider: ^6.0.5
-  sqflite: ^2.2.4+1
-  toast: ^0.3.0
-  path: 
 
 dev_dependencies:
   flutter_test:

@@ -2,10 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
-import 'package:gym_app/views/main_page.dart';
-import 'package:gym_app/views/register_page.dart';
 import '../components/default_form_field.dart';
-import '../utils/user_helpers.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -19,47 +16,6 @@ class _LoginPageState extends State<LoginPage> {
 
   final _userIdController = TextEditingController();
   final _passwordController = TextEditingController();
-  var userHelpers;
-
-  @override
-  void initState() {
-    super.initState();
-    userHelpers = UserHelpers();
-  }
-
-  login() async {
-    final uid = _userIdController.text;
-    final password = _passwordController.text;
-
-    if (uid.isEmpty) {
-      const AlertDialog(
-        content: Text('Preencha com ID!'),
-      );
-    } else if (password.isEmpty) {
-      const AlertDialog(
-        content: Text('Preencha com Senha!'),
-      );
-    } else {
-      await userHelpers.getLoginUser(uid, password).then((userData) {
-        print(userData.email);
-        if (userData != null) {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (_) => const MainPage()),
-              (route) => false);
-        } else {
-          const AlertDialog(
-            content: Text('Falha no Login!'),
-          );
-        }
-      }).catchError((error) {
-        print(error);
-        const AlertDialog(
-          content: Text('Falha no Login!'),
-        );
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                                 backgroundColor: kAccentColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15))),
-                            onPressed: login,
+                            onPressed: () {},
                             child: const Text('Login'),
                           ),
                         ),

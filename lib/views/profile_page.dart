@@ -161,8 +161,8 @@ class ProfilePage extends StatelessWidget {
                         ),
                         color: kSecondaryColor,
                       ),
-                      child: Row(
-                        children: const [
+                      child: const Row(
+                        children: [
                           Center(
                             child: Padding(
                               padding: EdgeInsets.only(left: 10),
