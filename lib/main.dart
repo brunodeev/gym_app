@@ -4,8 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gym_app/constants/colors.dart';
+import 'package:gym_app/models/user_manager.dart';
 import 'package:gym_app/views/login_page.dart';
-import 'package:gym_app/views/register_page.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,12 +23,15 @@ class MyApp extends StatelessWidget {
       systemNavigationBarColor: kSecondaryColor,
       statusBarColor: Colors.transparent,
     ));
-    return MaterialApp(
-        color: kPrimaryColor,
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          fontFamily: 'Poppins2',
-        ),
-        home: const LoginPage());
+    return Provider(
+      create: (_) => UserManager(),
+      child: MaterialApp(
+          color: kPrimaryColor,
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            fontFamily: 'Poppins2',
+          ),
+          home: const LoginPage()),
+    );
   }
 }

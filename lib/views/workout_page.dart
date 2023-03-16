@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gym_app/components/workout_card.dart';
 import 'package:gym_app/constants/colors.dart';
-import 'package:gym_app/data/dummy_data.dart';
 
 class WorkoutPage extends StatefulWidget {
   const WorkoutPage({super.key});
@@ -15,11 +14,9 @@ class _WorkoutPageState extends State<WorkoutPage> {
 
   @override
   Widget build(BuildContext context) {
-    final data = DUMMY_DATA();
-
     return Scaffold(
       backgroundColor: kPrimaryColor,
-      body: Column(
+      /*body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (data.type.length == 1)
@@ -266,7 +263,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
               ),
             ),
         ],
-      ),
+      ),*/
     );
   }
 }

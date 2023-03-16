@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, avoid_print
 
+import 'package:gym_app/models/user_manager.dart';
+import 'package:gym_app/models/user_model.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
 import 'package:gym_app/views/register_page.dart';
@@ -86,7 +89,12 @@ class _LoginPageState extends State<LoginPage> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15))),
                             onPressed: () {
-                              _formKey.currentState!.validate();
+                              if (_formKey.currentState!.validate()) {
+                                context.read<UserManager>().signIn(
+                                      UserModel(_emailController.text,
+                                          _passwordController.text),
+                                    );
+                              }
                             },
                             child: const Text('Login'),
                           ),
