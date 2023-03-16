@@ -17,6 +17,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -91,9 +92,20 @@ class _LoginPageState extends State<LoginPage> {
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 context.read<UserManager>().signIn(
-                                      UserModel(_emailController.text,
-                                          _passwordController.text),
-                                    );
+                                    user: UserModel(_emailController.text,
+                                        _passwordController.text),
+                                    onFail: (e) {
+                                      final snackBar = SnackBar(
+                                        key: _scaffoldKey,
+                                        content: Text('Falha ao entrar: $e'),
+                                        backgroundColor: Colors.red,
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    },
+                                    onSuccess: () {
+                                      print('sucesso');
+                                    });
                               }
                             },
                             child: const Text('Login'),
