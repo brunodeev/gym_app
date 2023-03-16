@@ -8,23 +8,20 @@ class DefaultFormField extends StatelessWidget {
     required this.label,
     required this.type,
     this.obscureText = false,
+    this.validator,
   }) : super(key: key);
   final TextEditingController controller;
   final String label;
   final TextInputType type;
   final bool? obscureText;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: obscureText!,
       keyboardType: type,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Por favor, entre com $label';
-        }
-        return null;
-      },
+      validator: validator,
       controller: controller,
       style: const TextStyle(color: Colors.white, fontFamily: 'Poppins1'),
       decoration: InputDecoration(

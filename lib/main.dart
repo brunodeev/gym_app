@@ -1,15 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore_for_file: avoid_print
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gym_app/constants/colors.dart';
+import 'package:gym_app/views/login_page.dart';
 import 'package:gym_app/views/register_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
-  FirebaseFirestore.instance.collection('teste').add({'teste': 'teste'});
 }
 
 class MyApp extends StatelessWidget {
@@ -27,6 +28,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'Poppins2',
         ),
-        home: const RegisterPage());
+        home: const LoginPage());
   }
 }

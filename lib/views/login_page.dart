@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
+import 'package:gym_app/views/register_page.dart';
 import '../components/default_form_field.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,7 +15,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
-  final _userIdController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
@@ -47,9 +48,17 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: [
                       DefaultFormField(
-                        label: 'ID',
-                        controller: _userIdController,
+                        label: 'Email',
+                        controller: _emailController,
                         type: TextInputType.emailAddress,
+                        validator: (email) {
+                          if (email!.isEmpty ||
+                              !email.contains('@') ||
+                              !email.contains('.com')) {
+                            return 'Email Inválido!';
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(
                         height: 5,
@@ -59,6 +68,12 @@ class _LoginPageState extends State<LoginPage> {
                         controller: _passwordController,
                         type: TextInputType.text,
                         obscureText: true,
+                        validator: (password) {
+                          if (password!.length < 5) {
+                            return 'Senha Inválida!';
+                          }
+                          return null;
+                        },
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -70,7 +85,9 @@ class _LoginPageState extends State<LoginPage> {
                                 backgroundColor: kAccentColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15))),
-                            onPressed: () {},
+                            onPressed: () {
+                              _formKey.currentState!.validate();
+                            },
                             child: const Text('Login'),
                           ),
                         ),
@@ -91,7 +108,14 @@ class _LoginPageState extends State<LoginPage> {
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const RegisterPage(),
+                                  ),
+                                );
+                              },
                               child: const Text(
                                 'Registre-se',
                                 style: TextStyle(color: kAccentColor),

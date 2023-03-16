@@ -15,7 +15,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _index = 1;
-  final List<Widget> _telas = [
+  final List<Widget> _screens = [
     const WorkoutPage(),
     const HomePage(),
     const ProfilePage(),
@@ -24,7 +24,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: defaultAppBar(),
-      body: _telas[_index],
+      body: _screens[_index],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: kSecondaryColor,
         currentIndex: _index,
