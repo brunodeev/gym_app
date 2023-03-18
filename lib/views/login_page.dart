@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      color: const Color(0xFF363642),
+                      color: Color.fromARGB(255, 45, 45, 59),
                       child: Column(
                         children: [
                           const Padding(
