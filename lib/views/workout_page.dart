@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gym_app/components/workout_card.dart';
 import 'package:gym_app/constants/colors.dart';
 
 class WorkoutPage extends StatefulWidget {

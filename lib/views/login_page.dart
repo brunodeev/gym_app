@@ -26,131 +26,175 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kSecondaryColor,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 200,
-                child: Image.asset(
-                  'assets/images/gym_icon.png',
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 25),
-                child: Text(
-                  'Entrar',
-                  style: TextStyle(
-                      color: Colors.white.withOpacity(0.6), fontSize: 40),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      DefaultFormField(
-                        label: 'Email',
-                        controller: _emailController,
-                        type: TextInputType.emailAddress,
-                        validator: (email) {
-                          if (email!.isEmpty ||
-                              !email.contains('@') ||
-                              !email.contains('.com')) {
-                            return 'Email Inválido!';
-                          }
-                          return null;
-                        },
+      body: Consumer<UserManager>(
+        builder: (_, userManager, __) {
+          return SafeArea(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25, bottom: 20),
+                    child: SizedBox(
+                      height: 200,
+                      child: Image.asset(
+                        'assets/images/gym_icon.png',
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      DefaultFormField(
-                        label: 'Senha',
-                        controller: _passwordController,
-                        type: TextInputType.text,
-                        obscureText: true,
-                        validator: (password) {
-                          if (password!.length < 5) {
-                            return 'Senha Inválida!';
-                          }
-                          return null;
-                        },
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.93,
-                          height: 45,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: kAccentColor,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15))),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                context.read<UserManager>().signIn(
-                                    user: UserModel(_emailController.text,
-                                        _passwordController.text),
-                                    onFail: (e) {
-                                      final snackBar = SnackBar(
-                                        key: _scaffoldKey,
-                                        content: Text('Falha ao entrar: $e'),
-                                        backgroundColor: Colors.red,
-                                      );
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
-                                    },
-                                    onSuccess: () {
-                                      print('sucesso');
-                                    });
-                              }
-                            },
-                            child: const Text('Login'),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 45,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'Não tem uma conta?',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            TextButton(
-                              style: ElevatedButton.styleFrom(
-                                foregroundColor: kAccentColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const RegisterPage(),
-                                  ),
-                                );
-                              },
-                              child: const Text(
-                                'Registre-se',
-                                style: TextStyle(color: kAccentColor),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Card(
+                      elevation: 8,
+                      shadowColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      color: const Color(0xFF363642),
+                      child: Column(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(top: 5, bottom: 25),
+                            child: Text(
+                              'Entrar',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 40),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Form(
+                              key: _formKey,
+                              child: Column(
+                                children: [
+                                  DefaultFormField(
+                                    label: 'Email',
+                                    controller: _emailController,
+                                    type: TextInputType.emailAddress,
+                                    validator: (email) {
+                                      if (email!.isEmpty ||
+                                          !email.contains('@') ||
+                                          !email.contains('.com')) {
+                                        return 'Email Inválido!';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  DefaultFormField(
+                                    label: 'Senha',
+                                    controller: _passwordController,
+                                    type: TextInputType.text,
+                                    obscureText: true,
+                                    validator: (password) {
+                                      if (password!.length < 5) {
+                                        return 'Senha Inválida!';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 25),
+                                    child: SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.93,
+                                      height: 45,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            elevation: 3,
+                                            backgroundColor: kAccentColor,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(15))),
+                                        onPressed: () {
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            userManager.signIn(
+                                                user: UserModel(
+                                                    _emailController.text,
+                                                    _passwordController.text),
+                                                onFail: (e) {
+                                                  final snackBar = SnackBar(
+                                                    key: _scaffoldKey,
+                                                    content: Text(
+                                                        'Falha ao entrar: $e'),
+                                                    backgroundColor: Colors.red,
+                                                  );
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(snackBar);
+                                                },
+                                                onSuccess: () {
+                                                  print('sucesso');
+                                                });
+                                          }
+                                        },
+                                        child: userManager.isLoading
+                                            ? const SizedBox(
+                                                height: 25,
+                                                width: 25,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  color: Colors.white,
+                                                ),
+                                              )
+                                            : const Text(
+                                                'Login',
+                                                style: TextStyle(fontSize: 15),
+                                              ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 65,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          'Não tem uma conta?',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        TextButton(
+                                          style: ElevatedButton.styleFrom(
+                                            foregroundColor: kAccentColor,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const RegisterPage(),
+                                              ),
+                                            );
+                                          },
+                                          child: const Text(
+                                            'Registre-se',
+                                            style:
+                                                TextStyle(color: kAccentColor),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

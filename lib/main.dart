@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       systemNavigationBarColor: kSecondaryColor,
       statusBarColor: Colors.transparent,
     ));
-    return Provider(
+    return ChangeNotifierProvider(
       create: (_) => UserManager(),
       child: MaterialApp(
           color: kPrimaryColor,

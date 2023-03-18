@@ -26,7 +26,7 @@ class DefaultFormField extends StatelessWidget {
       style: const TextStyle(color: Colors.white, fontFamily: 'Poppins1'),
       decoration: InputDecoration(
         filled: true,
-        fillColor: kPrimaryColor,
+        fillColor: kSecondaryColor,
         contentPadding: const EdgeInsets.symmetric(horizontal: 12),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
