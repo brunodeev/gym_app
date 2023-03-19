@@ -15,15 +15,15 @@ class UserManager extends ChangeNotifier {
   bool isLoading = false;
 
   Future<void> signIn(
-      {required UserModel user,
+      {required UserModel kuser,
       required Function onFail,
       required Function onSuccess}) async {
     setLoading(true);
     try {
       final UserCredential result = await auth.signInWithEmailAndPassword(
-          email: user.email, password: user.password);
+          email: kuser.email, password: kuser.password);
 
-      user = result.user as UserModel;
+      user = result.user!;
 
       onSuccess();
     } catch (e) {
