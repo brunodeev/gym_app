@@ -13,7 +13,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: kPrimaryColor,
       /*body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

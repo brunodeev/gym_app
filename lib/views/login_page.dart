@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      color: Color.fromARGB(255, 45, 45, 59),
+                      color: const Color.fromARGB(255, 45, 45, 59),
                       child: Column(
                         children: [
                           const Padding(
@@ -113,8 +113,11 @@ class _LoginPageState extends State<LoginPage> {
                                               .validate()) {
                                             userManager.signIn(
                                                 kuser: UserModel(
-                                                    _emailController.text,
-                                                    _passwordController.text),
+                                                    email:
+                                                        _emailController.text,
+                                                    password:
+                                                        _passwordController
+                                                            .text),
                                                 onFail: (e) {
                                                   final snackBar = SnackBar(
                                                     key: _scaffoldKey,

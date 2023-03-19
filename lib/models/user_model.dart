@@ -1,6 +1,8 @@
 class UserModel {
-  UserModel(this.email, this.password);
+  UserModel({this.email, this.password, this.name});
 
-  late String email;
-  late String password;
+  String? name;
+  String? email;
+  String? password;
+  String? confirmPassword;
 }

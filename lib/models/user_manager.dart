@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison, avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_app/helpers/firebase_errors.dart';
@@ -21,7 +23,7 @@ class UserManager extends ChangeNotifier {
     setLoading(true);
     try {
       final UserCredential result = await auth.signInWithEmailAndPassword(
-          email: kuser.email, password: kuser.password);
+          email: kuser.email!, password: kuser.password!);
 
       user = result.user!;
 

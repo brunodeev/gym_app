@@ -3,18 +3,20 @@ import 'package:gym_app/constants/colors.dart';
 
 class DefaultFormField extends StatelessWidget {
   const DefaultFormField({
-    required this.controller,
+    this.controller,
     Key? key,
     required this.label,
     required this.type,
     this.obscureText = false,
     this.validator,
+    this.onSaved,
   }) : super(key: key);
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String label;
   final TextInputType type;
   final bool? obscureText;
   final String? Function(String?)? validator;
+  final void Function(String?)? onSaved;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class DefaultFormField extends StatelessWidget {
         hintText: label,
         hintStyle: const TextStyle(color: Colors.white30, fontSize: 15),
       ),
+      onSaved: onSaved,
     );
   }
 }

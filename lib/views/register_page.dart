@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
+import 'package:gym_app/models/user_model.dart';
 import '../components/default_form_field.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -12,13 +13,9 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final _formKey = GlobalKey<FormState>();
-
-  final _userIdController = TextEditingController();
-  final _userNameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+  final _otherFormKey = GlobalKey<FormState>();
+  final _otherScaffoldKey = GlobalKey<ScaffoldState>();
+  final UserModel userModel = UserModel();
 
   @override
   Widget build(BuildContext context) {
@@ -45,45 +42,71 @@ class _RegisterPageState extends State<RegisterPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Form(
-                key: _formKey,
+                key: _otherFormKey,
                 child: Column(
                   children: [
                     DefaultFormField(
-                      label: 'ID',
-                      controller: _userIdController,
-                      type: TextInputType.text,
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    DefaultFormField(
-                      label: 'Nome de Usuário',
-                      controller: _userNameController,
+                      label: 'Nome',
                       type: TextInputType.emailAddress,
+                      onSaved: (name) => userModel.name = name!,
+                      validator: (name) {
+                        if (name!.isEmpty) {
+                          return 'Campo Obrigatório!';
+                        } else {
+                          return null;
+                        }
+                      },
                     ),
                     const SizedBox(
                       height: 5,
                     ),
                     DefaultFormField(
                       label: 'Email',
-                      controller: _emailController,
                       type: TextInputType.text,
+                      onSaved: (email) => userModel.email = email!,
+                      validator: (email) {
+                        if (email!.isEmpty ||
+                            !email.contains('@') ||
+                            !email.contains('.com')) {
+                          return 'Email Inválido!';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(
                       height: 5,
                     ),
                     DefaultFormField(
                       label: 'Senha',
-                      controller: _passwordController,
                       type: TextInputType.emailAddress,
+                      obscureText: true,
+                      onSaved: (password) => userModel.password = password!,
+                      validator: (password) {
+                        if (password!.isEmpty) {
+                          return 'Campo Obrigatório!';
+                        } else if (password.length < 5) {
+                          return 'Senha Inválida!';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(
                       height: 5,
                     ),
                     DefaultFormField(
                       label: 'Confirmar Senha',
-                      controller: _confirmPasswordController,
                       type: TextInputType.emailAddress,
+                      obscureText: true,
+                      onSaved: (confirmPassword) =>
+                          userModel.confirmPassword = confirmPassword!,
+                      validator: (password) {
+                        if (password!.isEmpty) {
+                          return 'Campo Obrigatório!';
+                        } else if (password.length < 5) {
+                          return 'Senha Inválida!';
+                        }
+                        return null;
+                      },
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 15, bottom: 35),
@@ -95,7 +118,23 @@ class _RegisterPageState extends State<RegisterPage> {
                               backgroundColor: kAccentColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15))),
-                          onPressed: () {},
+                          onPressed: () {
+                            if (_otherFormKey.currentState!.validate()) {
+                              _otherFormKey.currentState!.save();
+
+                              if (userModel.password !=
+                                  userModel.confirmPassword) {
+                                final snackBar = SnackBar(
+                                  key: _otherScaffoldKey,
+                                  content:
+                                      const Text('As senhas não correspondem!'),
+                                  backgroundColor: Colors.red,
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              }
+                            }
+                          },
                           child: const Text('Registrar'),
                         ),
                       ),
