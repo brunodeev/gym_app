@@ -34,6 +34,25 @@ class UserManager extends ChangeNotifier {
     setLoading(false);
   }
 
+  Future<void> singUp(
+      {required UserModel kuser,
+      required Function onFail,
+      required Function onSuccess}) async {
+    setLoading(true);
+
+    try {
+      final UserCredential result = await auth.createUserWithEmailAndPassword(
+          email: kuser.email!, password: kuser.password!);
+
+      user = result.user!;
+
+      onSuccess();
+    } catch (e) {
+      onFail(getErrorString(e.toString()));
+    }
+    setLoading(false);
+  }
+
   void setLoading(bool value) {
     isLoading = value;
     notifyListeners();

@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
+import 'package:gym_app/models/user_manager.dart';
 import 'package:gym_app/models/user_model.dart';
+import 'package:provider/provider.dart';
 import '../components/default_form_field.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -133,6 +135,19 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
                               }
+
+                              context.read<UserManager>().singUp(
+                                  kuser: userModel,
+                                  onFail: (e) {
+                                    final snackBar = SnackBar(
+                                      key: _otherScaffoldKey,
+                                      content: Text('Falha ao entrar: $e'),
+                                      backgroundColor: Colors.red,
+                                    );
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
+                                  },
+                                  onSuccess: () {});
                             }
                           },
                           child: const Text('Registrar'),
