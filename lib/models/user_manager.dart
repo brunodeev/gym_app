@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_null_comparison, avoid_print
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_app/helpers/firebase_errors.dart';
@@ -11,21 +12,23 @@ class UserManager extends ChangeNotifier {
   }
 
   final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  late User user;
+  late UserModel user;
 
   bool isLoading = false;
 
   Future<void> signIn(
-      {required UserModel kuser,
+      {required UserModel user,
       required Function onFail,
       required Function onSuccess}) async {
     setLoading(true);
     try {
       final UserCredential result = await auth.signInWithEmailAndPassword(
-          email: kuser.email!, password: kuser.password!);
+          email: user.email!, password: user.password!);
 
-      user = result.user!;
+      await _loadCurrentUser(firebaseUser: result.user);
+      this.user = user;
 
       onSuccess();
     } catch (e) {
@@ -44,7 +47,9 @@ class UserManager extends ChangeNotifier {
       final UserCredential result = await auth.createUserWithEmailAndPassword(
           email: kuser.email!, password: kuser.password!);
 
-      user = result.user!;
+      kuser.id = result.user!.uid;
+
+      await kuser.saveData();
 
       onSuccess();
     } catch (e) {
@@ -58,12 +63,14 @@ class UserManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _loadCurrentUser() async {
-    final User currentUser = auth.currentUser!;
+  Future<void> _loadCurrentUser({User? firebaseUser}) async {
+    final User currentUser = firebaseUser ?? auth.currentUser!;
     if (currentUser != null) {
-      user = currentUser;
-      print(user.uid);
+      final DocumentSnapshot docUser =
+          await firestore.collection('users').doc(currentUser.uid).get();
+      user = UserModel.fromDocument(docUser);
+      print(user.name);
+      notifyListeners();
     }
-    notifyListeners();
   }
 }
