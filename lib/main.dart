@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:gym_app/constants/colors.dart';
 import 'package:gym_app/models/user_manager.dart';
 import 'package:gym_app/views/login_page.dart';
+import 'package:gym_app/views/main_page.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -25,13 +26,20 @@ class MyApp extends StatelessWidget {
     ));
     return ChangeNotifierProvider(
       create: (_) => UserManager(),
+      lazy: false,
       child: MaterialApp(
           color: kPrimaryColor,
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             fontFamily: 'Poppins2',
           ),
-          home: const LoginPage()),
+          home: Consumer<UserManager>(
+            builder: (_, userManager, __) {
+              return userManager.isLoggedIn
+                  ? const MainPage()
+                  : const LoginPage();
+            },
+          )),
     );
   }
 }

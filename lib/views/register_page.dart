@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
 import 'package:gym_app/models/user_manager.dart';
 import 'package:gym_app/models/user_model.dart';
+import 'package:gym_app/views/main_page.dart';
 import 'package:provider/provider.dart';
 import '../components/default_form_field.dart';
 
@@ -166,7 +167,14 @@ class _RegisterPageState extends State<RegisterPage> {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(snackBar);
                                           },
-                                          onSuccess: () {});
+                                          onSuccess: () {
+                                            Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const MainPage()),
+                                                (route) => false);
+                                          });
                                     }
                                   },
                                   child: const Text('Registrar'),

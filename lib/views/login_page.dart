@@ -2,6 +2,7 @@
 
 import 'package:gym_app/models/user_manager.dart';
 import 'package:gym_app/models/user_model.dart';
+import 'package:gym_app/views/main_page.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_app/constants/colors.dart';
@@ -129,7 +130,12 @@ class _LoginPageState extends State<LoginPage> {
                                                       .showSnackBar(snackBar);
                                                 },
                                                 onSuccess: () {
-                                                  print('sucesso');
+                                                  Navigator.pushAndRemoveUntil(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const MainPage()),
+                                                      (route) => false);
                                                 });
                                           }
                                         },

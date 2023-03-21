@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison, avoid_print
+// ignore_for_file: unnecessary_null_comparison, avoid_print, unrelated_type_equality_checks
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,9 +14,10 @@ class UserManager extends ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  late UserModel user;
+  UserModel? user;
 
   bool isLoading = false;
+  bool get isLoggedIn => user != null;
 
   Future<void> signIn(
       {required UserModel user,
@@ -28,7 +29,6 @@ class UserManager extends ChangeNotifier {
           email: user.email!, password: user.password!);
 
       await _loadCurrentUser(firebaseUser: result.user);
-      this.user = user;
 
       onSuccess();
     } catch (e) {
@@ -58,6 +58,12 @@ class UserManager extends ChangeNotifier {
     setLoading(false);
   }
 
+  void signOut() {
+    auth.signOut();
+    user = null;
+    notifyListeners();
+  }
+
   void setLoading(bool value) {
     isLoading = value;
     notifyListeners();
@@ -69,7 +75,6 @@ class UserManager extends ChangeNotifier {
       final DocumentSnapshot docUser =
           await firestore.collection('users').doc(currentUser.uid).get();
       user = UserModel.fromDocument(docUser);
-      print(user.name);
       notifyListeners();
     }
   }
