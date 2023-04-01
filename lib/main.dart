@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gym_app/constants/colors.dart';
+import 'package:gym_app/models/product_manager.dart';
 import 'package:gym_app/models/user_manager.dart';
 import 'package:gym_app/views/login_page.dart';
 import 'package:gym_app/views/main_page.dart';
@@ -24,9 +25,17 @@ class MyApp extends StatelessWidget {
       systemNavigationBarColor: kSecondaryColor,
       statusBarColor: Colors.transparent,
     ));
-    return ChangeNotifierProvider(
-      create: (_) => UserManager(),
-      lazy: false,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => UserManager(),
+          lazy: false,
+        ),
+        Provider(
+          create: (_) => WorkoutManager(),
+          lazy: false,
+        )
+      ],
       child: MaterialApp(
           color: kPrimaryColor,
           debugShowCheckedModeBanner: false,
