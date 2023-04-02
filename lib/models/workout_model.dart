@@ -1,20 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Workout {
-  String? key;
-  WorkoutData? workoutData;
-
-  Workout({this.key, this.workoutData});
-}
-
-class WorkoutData {
-  String? workoutName;
-  String? rep;
-  String? series;
-
-  WorkoutData({this.workoutName, this.rep, this.series});
-
-  WorkoutData.fromJson(Map<dynamic, dynamic> json) {
-    workoutName = json['workoutName'];
-    rep = json['rep'];
-    series = json['series'];
+  Workout.fromDocument(DocumentSnapshot document) {
+    id = document.id;
+    name = document['name'] as String;
+    category = document['category'] as String;
+    repetitions = document['repetitions'] as int;
+    series = document['series'] as int;
   }
+
+  String? id;
+  String? name;
+  String? category;
+  int? repetitions;
+  int? series;
 }
